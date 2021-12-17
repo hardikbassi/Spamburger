@@ -1,7 +1,11 @@
+
 import pickle
-from re import L
+
 import tensorflow as tf
 import pandas as pd
+
+
+
 ##import the required libraries and APIs
 ##define tokenizing and padding parameters
 vocab_size = 10000
@@ -19,10 +23,12 @@ with open('tokenizer.pickle', 'rb') as handle:
     tokenizer = pickle.load(handle)
 
 model = tf.keras.models.load_model("lemmesaveyou.h5")
-
-sentence = [input("Enter Sentence: ")]
-sequences = tokenizer.texts_to_sequences(sentence)
-padded = pad_sequences(sequences, maxlen=max_length, padding=padding_type, truncating=trunc_type)
-for i in model.predict(padded):
-    for j in i:
-        print(str(j*100)+"% chance of being a spam")
+while(True):
+    for i in range(16):
+        print("\n")
+    sentence = [input("Enter Sentence: ")]
+    sequences = tokenizer.texts_to_sequences(sentence)
+    padded = pad_sequences(sequences, maxlen=max_length, padding=padding_type, truncating=trunc_type)
+    for i in model.predict(padded):
+        for j in i:
+            print(str(j*100)+"% chance of being a spam")
